@@ -120,10 +120,10 @@ def transparent_color_index(baseTenNum):
 def image_separator():
     write(b'\x2C')
 
-def image_top_left(baseTenNum):
+def image_left(baseTenNum):
     write(baseTenToBytesLE(baseTenNum))
 
-def image_top_right(baseTenNum):
+def image_top(baseTenNum):
     write(baseTenToBytesLE(baseTenNum))
 
 def local_color_table_flag(booleanFlag):
@@ -163,6 +163,30 @@ def color_lookup_value(baseTenNum):
 def end_file():
     write(b'\x00')
     gif.close()
+
+def plain_text_label():
+    write(b'\x21\x01')
+
+def text_grid_left(baseTenNum):
+    image_left(baseTenNum)
+
+def text_grid_top(baseTenNum):
+    image_top(baseTenNum) 
+
+def character_cell_width(baseTenNum):
+    write(bytearray([baseTenNum]))
+
+def character_cell_height(baseTenNum):
+    write(bytearray([baseTenNum]))
+
+def text_foreground_color_index(baseTenNum):
+    write(bytearray([baseTenNum]))
+
+def text_background_color_index(baseTenNum):
+    write(bytearray([baseTenNum]))
+
+def characters(stringCharacters):
+    write(bytearray([ord(x) for x in stringCharacters]))
 
 # Sources
 # https://www.w3.org/Graphics/GIF/spec-gif89a.txt
